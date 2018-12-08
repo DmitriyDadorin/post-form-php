@@ -1,0 +1,25 @@
+form && form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  var formData = new FormData(form);
+
+  var options = {
+    method: "POST",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": 'application/json'
+    },
+    body: JSON.stringify({
+      name: formData.get('name'),
+      tel: formData.get('tel'),
+      email: formData.get('email'),
+      model: formData.get('model'),
+      message: formData.get('message')
+    })
+  };
+  fetch('/send_post.php', options).then(function (response) {
+    intro_form.classList.add('hide');
+    submit_form.classList.add('visible');
+    }).catch(function (error) {
+    return console.log(error);
+  });
+});
